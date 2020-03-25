@@ -10,20 +10,20 @@ export default function Table() {
     }, []);
 
     const sortByAgeDecending = () => {
-        const sortedD = [...data].sort((a, b) => {
+        const sortedD = [...searchResults].sort((a, b) => {
             return b.dob.age - a.dob.age;
         });
-        setData(sortedD);
+        setSearchResults(sortedD);
     }
 
     const sortByAgeAscending = () => {
-        const sortedA = [...data].sort((a, b) => {
+        const sortedA = [...searchResults].sort((a, b) => {
             return a.dob.age - b.dob.age;
         });
-        setData(sortedA);
+        setSearchResults(sortedA);
     }
 
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState('');
     
     const handleChange = event => {
         setSearchTerm(event.target.value);
@@ -38,7 +38,7 @@ export default function Table() {
             emp.name.first.toLowerCase().includes(searchTerm));
             setSearchResults(results);
             console.log(searchResults);
-    }, [searchTerm]);
+    }, [searchTerm, data]);
 
 
     return (
@@ -55,7 +55,7 @@ export default function Table() {
                 </tr>
             </thead>
             <tbody>
-                {data && data.map(emp => (
+                {searchResults && searchResults.map(emp => (
                     <tr key={emp.login.uuid}>
                         <th scope="row"><img src={emp.picture.thumbnail} /></th>
                         <td>{emp.name.first} {emp.name.last}</td>
